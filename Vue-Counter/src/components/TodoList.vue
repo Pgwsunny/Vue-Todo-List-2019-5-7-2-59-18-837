@@ -12,7 +12,14 @@
         <div id="button" @click="addMsg()">Add</div>
       </article>
       <article class="list">
-        <Item v-show="isShowByType(index)" @chooseStatusChange="chooseStatusChange" :message="item.msg" :id="index" v-for="(item,index) in msgList" :key="index"></Item>
+        <Item
+          v-show="isShowByType(index)"
+          @chooseStatusChange="chooseStatusChange"
+          :message="item.msg"
+          :id="index"
+          v-for="(item,index) in msgList"
+          :key="index"
+        ></Item>
       </article>
       <article class="bottom">
         <div :class="{selected: type == 0}" @click="changeType(0)">All</div>
@@ -31,7 +38,7 @@ export default {
     return {
       msgList: [],
       currentMsg: "",
-      type : 0 //0为all，1为active，2为complete
+      type: 0
     };
   },
   components: {
@@ -39,27 +46,32 @@ export default {
   },
   methods: {
     addMsg: function() {
-      this.msgList.push({msg:this.currentMsg,choosed:false});
+      this.msgList.push({ msg: this.currentMsg, choosed: false });
     },
-    chooseStatusChange : function(newVal,id) {
+    chooseStatusChange: function(newVal, id) {
       this.msgList[id].choosed = newVal;
     },
-    changeType : function(num) {
+    changeType: function(num) {
       console.log(num);
       this.type = num;
     },
     isShowByType: function(index) {
       let isShow = true;
-      switch(this.type) {
-        case 0 : isShow = true; break;
-        case 1 : this.msgList[index].choosed?isShow = false:isShow = true; break;
-        case 2 : this.msgList[index].choosed?isShow = true:isShow = false; break;
+      switch (this.type) {
+        case 0:
+          isShow = true;
+          break;
+        case 1:
+          this.msgList[index].choosed ? (isShow = false) : (isShow = true);
+          break;
+        case 2:
+          this.msgList[index].choosed ? (isShow = true) : (isShow = false);
+          break;
       }
       return isShow;
     }
-  } ,
-  computed : {
-  }
+  },
+  computed: {}
 };
 </script>
 
@@ -70,7 +82,7 @@ export default {
 }
 .main {
   padding: 20px;
-  width: 400px;
+  width: 500px;
   background: rgb(162, 213, 243);
   border-radius: 5px;
 }
@@ -107,7 +119,7 @@ input {
   margin: 5px 10px;
   color: #fc999b;
 }
-.bottom div:hover  {
+.bottom div:hover {
   border: 1px solid;
   border-radius: 3px;
   cursor: pointer;
